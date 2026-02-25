@@ -30,7 +30,7 @@ const resources = {
       "pillar2_items": ["Real-time inventory across stores and sites—no more \"someone said it was in the store\".", "Project costing for Mjengo and site work: materials, labour, and margins per project.", "Live cash flow: see what's owed, what's paid, and what's stuck in approval."],
       "pillar3_title": "Locally Supported Growth",
       "pillar3_items": ["On-site training so your staff actually use the system, not just log in once.", "24/7 Kenyan-based support: when KRA changes a rule, we update your setup.", "No ticket queues to overseas teams—your growth is our priority."],
-      "comparison_title": "KRA Portal vs. Lultech ERP",
+      "comparison_title": "KRA Portal vs. Your Own Powerful ERP",
       "comparison_sub": "Why a custom ERP beats the public portal for a growing business.",
       "comparison_rows": [
         { "aspect": "Speed", "kra": "Manual entry, portal delays", "us": "One-click from ERPNext" },
