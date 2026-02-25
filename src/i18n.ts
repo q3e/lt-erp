@@ -6,7 +6,10 @@ const resources = {
   en: {
     translation: {
       "hero": "Unlock Your Payments. Stop the KRA Fear.",
-      "sub": "Custom ERPNext with full eTIMS integration and end-to-end business control. Built for contractors and SMBs who have outgrown the basic app.",
+      "hero_erp": "One Full ERP: Compliance + Total Visibility.",
+      "sub": "Custom ERPNext with full eTIMS integration and end-to-end business control. Get real insight into sales, commissions, and inventory—not just tax receipts. Built for contractors and SMBs who have outgrown the basic app.",
+      "hero_dual_1": "KRA eTIMS compliant",
+      "hero_dual_2": "Sales, commissions & inventory in one place",
       "leakage": "Revenue Leakage",
       "ssot": "Premium Solution for Kenyan SMBs",
       "audit": "Book a Demo",
@@ -53,7 +56,8 @@ const resources = {
       "roadmap_sustain": "Sustain",
       "roadmap_sustain_desc": "Continuous KRA updates",
       "footer_cta": "KRA is moving to real-time. Don't let your business be left behind.",
-      "footer_cta_sub": "Custom ERPNext. Full eTIMS integration. End-to-end control. Book a demo or calculate your ROI—and stop running on fear.",
+      "footer_cta_sub": "Get a full ERP: eTIMS compliance plus real-time insight into sales, commissions, and inventory. Book a demo or calculate your ROI—and stop running on fear.",
+      "footer_dual_label": "KRA compliance + full visibility into sales, commissions & inventory",
       "chaos_title": "Chaos vs. Clarity",
       "mess_title": "The Mess (Current State)",
       "veritas_title": "The Lultech Way",

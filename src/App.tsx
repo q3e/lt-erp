@@ -628,8 +628,13 @@ export default function App() {
             <h2 className="text-2xl md:text-3xl font-bold mb-6">
               {t('footer_cta')}
             </h2>
-            <p className="text-white/60 mb-10 text-lg">
+            <p className="text-white/60 mb-6 text-lg">
               {t('footer_cta_sub')}
+            </p>
+            <p className="text-veritas-emerald font-semibold text-sm mb-10 flex flex-wrap items-center justify-center gap-2">
+              <ShieldCheck className="w-4 h-4" />
+              {t('footer_dual_label')}
+              <LayoutDashboard className="w-4 h-4" />
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
