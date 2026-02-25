@@ -4,7 +4,6 @@ import {
   ShieldCheck, 
   TrendingUp, 
   Zap, 
-  BarChart3, 
   Smartphone, 
   WifiOff, 
   CheckCircle2, 
@@ -12,14 +11,20 @@ import {
   X, 
   ArrowRight,
   Calculator,
-  Lock,
-  Database,
   Users,
   MessageSquare,
   FileText,
   AlertTriangle,
   Globe,
-  ChevronDown
+  ChevronDown,
+  LayoutDashboard,
+  Headphones,
+  BookOpen,
+  Wrench,
+  GraduationCap,
+  RefreshCw,
+  Building2,
+  Package
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -99,9 +104,9 @@ const Navbar = () => {
             </AnimatePresence>
           </div>
 
-          <button className="bg-veritas-navy text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
+          <a href="#contact" className="bg-veritas-navy text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
             {t('demo')}
-          </button>
+          </a>
         </div>
 
         <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -131,7 +136,7 @@ const Navbar = () => {
             <a href="#chaos" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('solutions')}</a>
             <a href="#compliance" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('tax_benefits')}</a>
             <a href="#calculator" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('calculator')}</a>
-            <button className="bg-veritas-emerald text-white w-full py-4 rounded-xl font-bold">{t('demo')}</button>
+            <a href="#contact" className="block text-center bg-veritas-emerald text-white w-full py-4 rounded-xl font-bold">{t('demo')}</a>
           </motion.div>
         )}
       </AnimatePresence>
@@ -265,7 +270,7 @@ const ContactForm = () => {
                   <ShieldCheck className="text-veritas-navy w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg">Kultech</h4>
+                  <h4 className="font-bold text-lg">Lultech</h4>
                   <p className="text-slate-500">Nairobi, Kenya</p>
                 </div>
               </div>
@@ -311,6 +316,10 @@ export default function App() {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToCalculator = () => {
+    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -341,12 +350,79 @@ export default function App() {
               >
                 {t('audit')} <ArrowRight className={`w-6 h-6 group-hover:translate-x-2 transition-transform ${isRtl ? 'rotate-180' : ''}`} />
               </button>
+              <button 
+                onClick={scrollToCalculator}
+                className="bg-white text-veritas-navy border-2 border-slate-200 px-12 py-6 rounded-2xl font-bold text-xl hover:border-veritas-emerald hover:bg-veritas-surface transition-all flex items-center gap-3"
+              >
+                <Calculator className="w-6 h-6" />
+                {t('calc_roi')}
+              </button>
             </div>
           </motion.div>
         </div>
       </header>
 
+      <section className="py-20 bg-veritas-surface border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-700 text-xs font-bold uppercase tracking-wider border border-red-100">
+              <AlertTriangle className="w-3 h-3" />
+              The State of the Market
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-veritas-navy mt-6 mb-10">
+              {t('state_of_market_title')}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 leading-relaxed">
+              {t('state_of_market_1')}
+            </p>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              {t('state_of_market_2')}
+            </p>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              {t('state_of_market_3')}
+            </p>
+          </div>
+        </div>
+      </section>
+
       <ChaosClarity />
+
+      <section id="pillars" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-veritas-navy mb-4">
+              {t('pillars_title')}
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              {t('pillars_subtitle')}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: ShieldCheck, titleKey: 'pillar1_title', itemsKey: 'pillar1_items' },
+              { icon: LayoutDashboard, titleKey: 'pillar2_title', itemsKey: 'pillar2_items' },
+              { icon: Headphones, titleKey: 'pillar3_title', itemsKey: 'pillar3_items' },
+            ].map((pillar) => (
+              <div key={pillar.titleKey} className="glass-panel p-8 rounded-[2rem] hover:border-veritas-emerald transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center mb-6">
+                  <pillar.icon className="text-veritas-emerald w-7 h-7" />
+                </div>
+                <h3 className="text-xl font-bold text-veritas-navy mb-6">{t(pillar.titleKey)}</h3>
+                <ul className="space-y-4">
+                  {(t(pillar.itemsKey, { returnObjects: true }) as string[]).map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-slate-600 text-sm">
+                      <CheckCircle2 className="w-5 h-5 text-veritas-emerald flex-shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Compliance Section */}
       <section id="compliance" className="py-24 bg-white overflow-hidden">
@@ -438,6 +514,109 @@ export default function App() {
         </div>
       </section>
 
+      <section id="comparison" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-veritas-navy mb-4">
+              {t('comparison_title')}
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              {t('comparison_sub')}
+            </p>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-lg">
+            <table className="w-full min-w-[600px]">
+              <thead>
+                <tr className="border-b border-slate-200 bg-veritas-navy text-white">
+                  <th className="text-left py-4 px-6 font-bold">Aspect</th>
+                  <th className="text-left py-4 px-6 font-bold">KRA Portal Only</th>
+                  <th className="text-left py-4 px-6 font-bold">Lultech ERP</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(t('comparison_rows', { returnObjects: true }) as { aspect: string; kra: string; us: string }[]).map((row, i) => (
+                  <tr
+                    key={row.aspect}
+                    className={`border-b border-slate-100 ${i % 2 === 1 ? 'bg-veritas-surface' : ''}`}
+                  >
+                    <td className="py-4 px-6 font-semibold text-veritas-navy">{row.aspect}</td>
+                    <td className="py-4 px-6 text-slate-600">{row.kra}</td>
+                    <td className="py-4 px-6 text-veritas-navy font-medium">
+                      <span className="inline-flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-veritas-emerald flex-shrink-0" />
+                        {row.us}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="cases" className="py-24 bg-veritas-surface">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-veritas-navy mb-4">
+              {t('cases_title')}
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              {t('cases_subtitle')}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="glass-panel p-8 rounded-[2rem] border-slate-200">
+              <div className="w-14 h-14 rounded-2xl bg-veritas-navy flex items-center justify-center mb-6">
+                <Building2 className="text-white w-7 h-7" />
+              </div>
+              <h3 className="text-xl font-bold text-veritas-navy mb-3">{t('case_contractor_title')}</h3>
+              <p className="text-slate-600 leading-relaxed">
+                {t('case_contractor_desc')}
+              </p>
+            </div>
+            <div className="glass-panel p-8 rounded-[2rem] border-slate-200">
+              <div className="w-14 h-14 rounded-2xl veritas-gradient flex items-center justify-center mb-6">
+                <Package className="text-white w-7 h-7" />
+              </div>
+              <h3 className="text-xl font-bold text-veritas-navy mb-3">{t('case_distributor_title')}</h3>
+              <p className="text-slate-600 leading-relaxed">
+                {t('case_distributor_desc')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" className="py-24 bg-veritas-navy text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t('roadmap_title')}
+            </h2>
+            <p className="text-xl text-white/60 max-w-2xl mx-auto">
+              {t('roadmap_sub')}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: BookOpen, titleKey: 'roadmap_discovery', descKey: 'roadmap_discovery_desc' },
+              { icon: Wrench, titleKey: 'roadmap_build', descKey: 'roadmap_build_desc' },
+              { icon: GraduationCap, titleKey: 'roadmap_train', descKey: 'roadmap_train_desc' },
+              { icon: RefreshCw, titleKey: 'roadmap_sustain', descKey: 'roadmap_sustain_desc' },
+            ].map((step) => (
+              <div key={step.titleKey} className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center">
+                <div className="w-14 h-14 veritas-gradient rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <step.icon className="text-white w-7 h-7" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">{t(step.titleKey)}</h3>
+                <p className="text-white/60 text-sm">{t(step.descKey)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <ROICalculator onRescue={scrollToContact} />
 
       <ContactForm />
@@ -445,6 +624,32 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-veritas-navy text-white py-24">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-2xl mx-auto text-center mb-16 pb-16 border-b border-white/10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">
+              {t('footer_cta')}
+            </h2>
+            <p className="text-white/60 mb-10 text-lg">
+              {t('footer_cta_sub')}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); scrollToContact(); }}
+                className="inline-flex items-center justify-center gap-2 bg-veritas-emerald text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-500 transition-colors"
+              >
+                {t('audit')}
+                <ArrowRight className="w-5 h-5" />
+              </a>
+              <a
+                href="#calculator"
+                onClick={(e) => { e.preventDefault(); scrollToCalculator(); }}
+                className="inline-flex items-center justify-center gap-2 bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-colors"
+              >
+                <Calculator className="w-5 h-5" />
+                {t('calc_roi')}
+              </a>
+            </div>
+          </div>
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div className="col-span-2">
               <div className="flex items-center gap-2 mb-6">
@@ -467,14 +672,14 @@ export default function App() {
             <div>
               <h4 className="font-bold mb-6">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-veritas-emerald transition-colors">About Kultech</a></li>
+                <li><a href="#" className="hover:text-veritas-emerald transition-colors">About Lultech</a></li>
                 <li><a href="#contact" className="hover:text-veritas-emerald transition-colors">Contact Us</a></li>
                 <li><a href="https://kultech.com" className="hover:text-veritas-emerald transition-colors">kultech.com</a></li>
               </ul>
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-white/10 text-slate-500 text-sm">
-            <p>© 2026 Kultech. Nairobi, Kenya. All rights reserved.</p>
+            <p>© 2026 Lultech. Nairobi, Kenya. All rights reserved.</p>
             <div className="flex gap-8">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
