@@ -674,7 +674,7 @@ export default function App() {
               <ul className="space-y-4 text-slate-400 text-sm">
                 <li><a href="#" className="hover:text-veritas-emerald transition-colors">About Lultech</a></li>
                 <li><a href="#contact" className="hover:text-veritas-emerald transition-colors">Contact Us</a></li>
-                <li><a href="https://kultech.com" className="hover:text-veritas-emerald transition-colors">kultech.com</a></li>
+                <li><a href="https://lultech.com" className="hover:text-veritas-emerald transition-colors">lultech.com</a></li>
               </ul>
             </div>
           </div>
