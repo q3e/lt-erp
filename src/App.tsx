@@ -1,533 +1,480 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'motion/react';
 import { 
-  MessageSquare, 
-  Users, 
-  FileText, 
-  TrendingDown, 
   ShieldCheck, 
-  ArrowRight, 
+  TrendingUp, 
+  Zap, 
+  BarChart3, 
+  Smartphone, 
+  WifiOff, 
   CheckCircle2, 
-  AlertCircle,
-  Globe,
+  Menu, 
+  X, 
+  ArrowRight,
   Calculator,
-  LayoutDashboard,
-  Banknote,
-  Scale,
-  Eye,
-  Clock,
-  Zap,
-  CreditCard,
-  Send,
-  WifiOff,
-  Percent,
-  Gavel
+  Lock,
+  Database,
+  Users,
+  MessageSquare,
+  FileText,
+  AlertTriangle,
+  Globe,
+  ChevronDown
 } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion, AnimatePresence } from 'motion/react';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-export default function App() {
+const Navbar = () => {
   const { t, i18n } = useTranslation();
-  const [revenue, setRevenue] = useState<number>(50000);
-  const [days, setDays] = useState<number>(5);
-  const [profitDrain, setProfitDrain] = useState<number>(0);
-  const contactRef = useRef<HTMLElement>(null);
-
-  const isRTL = i18n.language === 'ar';
-
-  useEffect(() => {
-    const drain = ((revenue * 0.02) + (days * 500)) * 12;
-    setProfitDrain(drain);
-  }, [revenue, days]);
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
-
-  const scrollToContact = () => {
-    contactRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const languages = [
-    { code: 'en', label: 'EN' },
-    { code: 'sw', label: 'SW' },
-    { code: 'am', label: 'AM' },
-    { code: 'fr', label: 'FR' },
-    { code: 'ar', label: 'AR' },
+    { code: 'en', name: 'English' },
+    { code: 'sw', name: 'Swahili' },
+    { code: 'am', name: 'Amharic' },
+    { code: 'fr', name: 'Français' },
+    { code: 'ar', name: 'العربية', dir: 'rtl' }
   ];
 
+  const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    document.documentElement.dir = currentLang.dir || 'ltr';
+    document.documentElement.lang = currentLang.code;
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentLang]);
+
+  const changeLanguage = (code: string) => {
+    i18n.changeLanguage(code);
+    setLangMenuOpen(false);
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <div className={cn("min-h-screen selection:bg-accent-blue/30", isRTL && "rtl")}>
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-pharma-clean/80 backdrop-blur-md border-b border-executive-blue/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-executive-blue rounded-lg flex items-center justify-center">
-                <ShieldCheck className="text-white w-5 h-5" />
-              </div>
-              <span className="font-bold text-xl tracking-tight text-executive-blue">LULTECH</span>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'glass-panel py-3' : 'bg-transparent py-6'}`}>
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 veritas-gradient rounded-lg flex items-center justify-center">
+            <Zap className="text-white w-6 h-6" />
+          </div>
+          <span className="text-2xl font-bold tracking-tight text-veritas-navy">KUL<span className="text-veritas-emerald">TECH</span></span>
+        </div>
+        
+        <div className="hidden md:flex items-center gap-8">
+          <a href="#chaos" className="text-sm font-medium text-slate-600 hover:text-veritas-emerald transition-colors">{t('solutions')}</a>
+          <a href="#compliance" className="text-sm font-medium text-slate-600 hover:text-veritas-emerald transition-colors">{t('tax_benefits')}</a>
+          <a href="#calculator" className="text-sm font-medium text-slate-600 hover:text-veritas-emerald transition-colors">{t('calculator')}</a>
+          
+          <div className="relative">
+            <button 
+              onClick={() => setLangMenuOpen(!langMenuOpen)}
+              className="flex items-center gap-2 text-sm font-bold uppercase text-slate-600 hover:text-veritas-emerald transition-colors"
+            >
+              <Globe className="w-4 h-4" />
+              {currentLang.code}
+              <ChevronDown className={`w-3 h-3 transition-transform ${langMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <AnimatePresence>
+              {langMenuOpen && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full right-0 mt-2 w-40 bg-white border border-slate-100 rounded-xl shadow-xl overflow-hidden"
+                >
+                  {languages.map((l) => (
+                    <button 
+                      key={l.code} 
+                      onClick={() => changeLanguage(l.code)}
+                      className={`w-full text-left px-4 py-3 text-sm hover:bg-slate-50 transition-colors ${i18n.language === l.code ? 'text-veritas-emerald font-bold' : 'text-slate-600'}`}
+                    >
+                      {l.name}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <button className="bg-veritas-navy text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
+            {t('demo')}
+          </button>
+        </div>
+
+        <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? <X /> : <Menu />}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-0 w-full bg-white border-b border-slate-100 p-6 flex flex-col gap-4 md:hidden shadow-xl"
+          >
+            <div className="flex flex-wrap gap-4 mb-4 pb-4 border-b border-slate-100">
+              {languages.map((l) => (
+                <button 
+                  key={l.code} 
+                  onClick={() => changeLanguage(l.code)} 
+                  className={`text-xs font-bold uppercase ${i18n.language === l.code ? 'text-veritas-emerald' : 'text-slate-400'}`}
+                >
+                  {l.code}
+                </button>
+              ))}
             </div>
+            <a href="#chaos" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('solutions')}</a>
+            <a href="#compliance" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('tax_benefits')}</a>
+            <a href="#calculator" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('calculator')}</a>
+            <button className="bg-veritas-emerald text-white w-full py-4 rounded-xl font-bold">{t('demo')}</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+const ChaosClarity = () => {
+  const { t } = useTranslation();
+  
+  return (
+    <section id="chaos" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('chaos_title')}</h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-slate-50 rounded-[2.5rem] p-8 border border-slate-200">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                <AlertTriangle className="text-red-600 w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold text-red-900">{t('mess_title')}</h3>
+            </div>
+            <div className="space-y-4">
+              {(t('mess_items', { returnObjects: true }) as string[]).map((item, i) => (
+                <div key={i} className="bg-white p-4 rounded-2xl border border-slate-100 flex items-center gap-4 shadow-sm">
+                  <div className="w-2 h-2 rounded-full bg-red-400" />
+                  <span className="text-slate-600 font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-veritas-navy rounded-[2.5rem] p-8 border border-veritas-navy relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-veritas-emerald/10 blur-3xl rounded-full"></div>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-veritas-emerald rounded-full flex items-center justify-center">
+                <CheckCircle2 className="text-white w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold text-white">{t('veritas_title')}</h3>
+            </div>
+            <div className="space-y-4">
+              {(t('veritas_items', { returnObjects: true }) as string[]).map((item, i) => (
+                <div key={i} className="bg-white/5 p-4 rounded-2xl border border-white/10 flex items-center gap-4 backdrop-blur-sm">
+                  <div className="w-2 h-2 rounded-full bg-veritas-emerald" />
+                  <span className="text-slate-300 font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ROICalculator = ({ onRescue }: { onRescue: () => void }) => {
+  const { t } = useTranslation();
+  const [turnover, setTurnover] = useState(100000);
+
+  const leakage = useMemo(() => {
+    // 10% average leakage in fragmented systems
+    return turnover * 0.10 * 12;
+  }, [turnover]);
+
+  return (
+    <section id="calculator" className="py-24 bg-veritas-surface">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-veritas-emerald text-xs font-bold uppercase tracking-wider mb-6">
+              <Calculator className="w-3 h-3" />
+              {t('ssot')}
+            </div>
+            <h2 className="text-4xl font-bold mb-6 leading-tight">{t('calc_title')}</h2>
             
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1 bg-executive-light p-1 rounded-full border border-executive-blue/10">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => changeLanguage(lang.code)}
-                    className={cn(
-                      "px-3 py-1 rounded-full text-xs font-medium transition-all",
-                      i18n.language === lang.code 
-                        ? "bg-executive-blue text-white shadow-sm" 
-                        : "text-executive-blue/60 hover:text-executive-blue"
-                    )}
-                  >
-                    {lang.label}
-                  </button>
-                ))}
+            <div className="space-y-10">
+              <div>
+                <div className="flex justify-between mb-4">
+                  <label className="font-semibold text-slate-700">{t('calc_label')}</label>
+                  <span className="text-veritas-navy font-bold text-xl">${turnover.toLocaleString()}</span>
+                </div>
+                <input 
+                  type="range" min="10000" max="1000000" step="10000" value={turnover}
+                  onChange={(e) => setTurnover(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-veritas-emerald"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-4 profit-gradient opacity-10 blur-3xl rounded-[3rem]"></div>
+            <div className="relative bg-veritas-navy rounded-[3rem] p-12 text-white shadow-2xl border border-white/5">
+              <h3 className="text-slate-400 uppercase text-xs font-bold tracking-widest mb-4">{t('calc_result')}</h3>
+              <div className="text-5xl md:text-7xl font-bold mb-10 text-veritas-emerald">
+                ${Math.round(leakage).toLocaleString()}
               </div>
               <button 
-                onClick={scrollToContact}
-                className="hidden sm:block bg-executive-blue text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-executive-blue/90 transition-colors"
+                onClick={onRescue}
+                className="w-full profit-gradient text-white py-5 rounded-2xl font-bold text-xl transition-all transform hover:scale-[1.02] shadow-xl shadow-emerald-900/20"
               >
-                {t('cta')}
+                {t('calc_cta')}
               </button>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
+    </section>
+  );
+};
+
+const ContactForm = () => {
+  const { t } = useTranslation();
+  
+  return (
+    <section id="contact" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-20">
+          <div>
+            <h2 className="text-4xl font-bold mb-8">{t('contact.title')}</h2>
+            <p className="text-slate-600 text-lg mb-12 leading-relaxed">
+              {t('contact.subtitle')}
+            </p>
+            
+            <div className="space-y-8">
+              <div className="flex items-center gap-6">
+                <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100">
+                  <ShieldCheck className="text-veritas-navy w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg">Kultech</h4>
+                  <p className="text-slate-500">Nairobi, Kenya</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="glass-panel p-10 rounded-[2.5rem] shadow-xl">
+            <form className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-700">{t('contact.name')}</label>
+                  <input type="text" className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-veritas-emerald outline-none transition-all" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-700">{t('contact.company')}</label>
+                  <input type="text" className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-veritas-emerald outline-none transition-all" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-700">{t('contact.email')}</label>
+                <input type="email" className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-veritas-emerald outline-none transition-all" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-700">{t('contact.message')}</label>
+                <textarea className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-veritas-emerald outline-none transition-all h-32"></textarea>
+              </div>
+              <button className="w-full bg-veritas-navy text-white py-5 rounded-xl font-bold text-lg hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
+                {t('contact.send')}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default function App() {
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.language === 'ar';
+
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <div className="min-h-screen">
+      <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <span className="inline-block px-4 py-1.5 mb-6 rounded-full bg-accent-blue/10 text-executive-blue text-xs font-bold uppercase tracking-widest border border-accent-blue/20">
-              Lultech Africa
-            </span>
-            <h1 className="text-5xl sm:text-7xl font-bold text-executive-blue leading-[1.1] mb-8 tracking-tight">
+      <header className="relative pt-32 pb-20 md:pt-52 md:pb-32 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-40">
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-veritas-emerald/10 blur-[120px] rounded-full"></div>
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-veritas-navy/5 blur-[120px] rounded-full"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-veritas-emerald text-sm font-bold mb-10 border border-emerald-100">
+              <span className="w-2 h-2 rounded-full bg-veritas-emerald animate-pulse"></span>
+              {t('ssot')}
+            </div>
+            <h1 className="text-5xl md:text-8xl font-bold text-veritas-navy mb-8 tracking-tight max-w-5xl mx-auto leading-[1.05]">
               {t('hero')}
             </h1>
-            <p className="text-xl text-executive-blue/70 mb-10 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-600 mb-14 max-w-3xl mx-auto leading-relaxed">
               {t('sub')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <button 
                 onClick={scrollToContact}
-                className="bg-executive-blue text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform shadow-lg shadow-executive-blue/20"
+                className="bg-veritas-navy text-white px-12 py-6 rounded-2xl font-bold text-xl hover:bg-slate-800 transition-all shadow-2xl shadow-slate-300 flex items-center gap-3 group"
               >
-                {t('cta')}
-                <ArrowRight className={cn("w-5 h-5", isRTL && "rotate-180")} />
-              </button>
-              <button 
-                onClick={scrollToContact}
-                className="bg-white text-executive-blue border border-executive-blue/10 px-8 py-4 rounded-xl font-bold hover:bg-executive-light transition-colors"
-              >
-                ERPNext Solutions
+                {t('audit')} <ArrowRight className={`w-6 h-6 group-hover:translate-x-2 transition-transform ${isRtl ? 'rotate-180' : ''}`} />
               </button>
             </div>
           </motion.div>
         </div>
-        
-        {/* Background Decoration */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent-blue/5 to-transparent -z-10" />
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl -z-10" />
-      </section>
+      </header>
 
-      {/* KRA Stress & Disconnected Data - Center Stage */}
-      <section className="py-20 bg-executive-light border-y border-executive-blue/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-executive-blue rounded-[3rem] p-12 sm:p-20 text-white relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-accent-blue/20 to-transparent opacity-50" />
-            
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/20 text-red-400 text-xs font-bold uppercase tracking-widest border border-red-500/30 mb-8">
-                  <AlertCircle className="w-4 h-4" />
-                  High Risk Alert
-                </div>
-                <h2 className="text-4xl sm:text-6xl font-bold mb-8 leading-tight">
-                  {t('kra_trap_title')}
-                </h2>
-                <p className="text-xl text-white/70 leading-relaxed mb-10">
-                  {t('kra_trap_sub')}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex items-start gap-4 p-6 rounded-2xl bg-white/5 border border-white/10">
-                    <TrendingDown className="text-red-400 w-8 h-8 flex-shrink-0" />
-                    <div>
-                      <p className="font-bold text-lg mb-1">Profit Leakage</p>
-                      <p className="text-sm text-white/40">Disconnected records hide missing revenue.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4 p-6 rounded-2xl bg-white/5 border border-white/10">
-                    <ShieldCheck className="text-accent-blue w-8 h-8 flex-shrink-0" />
-                    <div>
-                      <p className="font-bold text-lg mb-1">Audit Risk</p>
-                      <p className="text-sm text-white/40">Manual eTIMS entry leads to costly penalties.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: "Sales Data", status: "Disconnected", color: "text-red-400" },
-                  { label: "Bank Records", status: "Manual", color: "text-yellow-400" },
-                  { label: "Tax Filing", status: "Delayed", color: "text-red-400" },
-                  { label: "Inventory", status: "Blind", color: "text-red-400" },
-                ].map((item, idx) => (
-                  <motion.div 
-                    key={idx}
-                    whileHover={{ scale: 1.05 }}
-                    className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center"
-                  >
-                    <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-2">{item.label}</p>
-                    <p className={cn("text-2xl font-bold", item.color)}>{item.status}</p>
-                  </motion.div>
-                ))}
-                <div className="col-span-2 p-8 rounded-3xl bg-accent-blue text-executive-blue text-center font-bold">
-                  The Solution: Expert ERPNext Implementation by Lultech
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tax Benefits & Compliance Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="p-10 rounded-[2.5rem] bg-executive-light border border-executive-blue/5 shadow-sm">
-              <div className="w-14 h-14 bg-executive-blue rounded-2xl flex items-center justify-center mb-8">
-                <Percent className="text-white w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-bold text-executive-blue mb-4">{t('tax_deduction_title')}</h3>
-              <p className="text-executive-blue/60 leading-relaxed mb-6">{t('tax_deduction_sub')}</p>
-              <ul className="space-y-3 text-sm text-executive-blue/80 font-medium">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-accent-blue" /> 20% Annual Wear & Tear</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-accent-blue" /> 5-Year Straight Line Basis</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-accent-blue" /> 30% Allowance on Hardware</li>
-              </ul>
-            </div>
-
-            <div className="p-10 rounded-[2.5rem] bg-executive-blue text-white shadow-xl">
-              <div className="w-14 h-14 bg-accent-blue rounded-2xl flex items-center justify-center mb-8">
-                <ShieldCheck className="text-executive-blue w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">{t('etims_direct_title')}</h3>
-              <p className="text-white/60 leading-relaxed mb-6">{t('etims_direct_sub')}</p>
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs leading-relaxed text-white/40">
-                "From Jan 1, 2026, KRA validates all income/expenses via eTIMS. Non-compliant systems risk disallowed expenses and double-tax penalties."
-              </div>
-            </div>
-
-            <div className="p-10 rounded-[2.5rem] bg-executive-light border border-executive-blue/5 shadow-sm">
-              <div className="w-14 h-14 bg-red-500 rounded-2xl flex items-center justify-center mb-8">
-                <Gavel className="text-white w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-bold text-executive-blue mb-4">{t('penalty_title')}</h3>
-              <p className="text-executive-blue/60 leading-relaxed mb-6">{t('penalty_sub')}</p>
-              <ul className="space-y-3 text-sm text-executive-blue/80 font-medium">
-                <li className="flex items-center gap-2"><AlertCircle className="w-4 h-4 text-red-500" /> Fines up to KSh 2,000,000</li>
-                <li className="flex items-center gap-2"><AlertCircle className="w-4 h-4 text-red-500" /> Disallowed Business Expenses</li>
-                <li className="flex items-center gap-2"><AlertCircle className="w-4 h-4 text-red-500" /> Denial of Tax Compliance Cert</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Offline Capabilities Section */}
-      <section className="py-24 bg-executive-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-[3rem] p-12 sm:p-20 border border-executive-blue/5 shadow-lg">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="order-2 lg:order-1">
-                <div className="w-16 h-16 bg-executive-blue rounded-2xl flex items-center justify-center mb-8">
-                  <WifiOff className="text-white w-8 h-8" />
-                </div>
-                <h2 className="text-4xl font-bold text-executive-blue mb-6">{t('offline_title')}</h2>
-                <p className="text-xl text-executive-blue/60 leading-relaxed mb-8">{t('offline_sub')}</p>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-executive-light border border-executive-blue/5">
-                    <div className="w-2 h-2 bg-accent-blue rounded-full" />
-                    <p className="text-sm font-bold text-executive-blue">VSCU & eTIMS Client Support</p>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-executive-light border border-executive-blue/5">
-                    <div className="w-2 h-2 bg-accent-blue rounded-full" />
-                    <p className="text-sm font-bold text-executive-blue">Automatic Sync on Connectivity</p>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-executive-light border border-executive-blue/5">
-                    <div className="w-2 h-2 bg-accent-blue rounded-full" />
-                    <p className="text-sm font-bold text-executive-blue">USSD Invoicing (*222#) Support</p>
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 lg:order-2">
-                <div className="aspect-video bg-executive-blue rounded-3xl flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/20 to-transparent" />
-                  <Zap className="w-20 h-20 text-accent-blue animate-pulse" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sales Visibility & Meeting Reduction */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl sm:text-5xl font-bold text-executive-blue mb-6">Total Control, Zero Blind Spots</h2>
-            <p className="text-xl text-executive-blue/60 max-w-3xl mx-auto">We eliminate the "Meeting Trap" by giving you real-time visibility into your sales team and revenue stream.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-10 rounded-[2.5rem] bg-executive-light border border-executive-blue/5 hover:shadow-xl transition-all group">
-              <div className="w-14 h-14 bg-executive-blue rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Eye className="text-white w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-bold text-executive-blue mb-4">{t('sales_visibility')}</h3>
-              <p className="text-executive-blue/60 leading-relaxed">{t('sales_visibility_desc')}</p>
-            </div>
-
-            <div className="p-10 rounded-[2.5rem] bg-executive-light border border-executive-blue/5 hover:shadow-xl transition-all group">
-              <div className="w-14 h-14 bg-accent-blue rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Clock className="text-executive-blue w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-bold text-executive-blue mb-4">{t('meeting_reduction')}</h3>
-              <p className="text-executive-blue/60 leading-relaxed">{t('meeting_reduction_desc')}</p>
-            </div>
-
-            <div className="p-10 rounded-[2.5rem] bg-executive-light border border-executive-blue/5 hover:shadow-xl transition-all group">
-              <div className="w-14 h-14 bg-executive-blue rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Zap className="text-white w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-bold text-executive-blue mb-4">Instant Commission Truth</h3>
-              <p className="text-executive-blue/60 leading-relaxed">Automated commission calculations based on verified bank payments. No more disputes.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Integrations Section */}
-      <section className="py-24 bg-executive-blue text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-            <div className="max-w-xl">
-              <h2 className="text-4xl font-bold mb-6">{t('integrations_title')}</h2>
-              <p className="text-xl text-white/60 mb-10">Lultech integrates ERPNext with the tools your team and customers already use. Native support for East African payment and communication rails.</p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { name: "M-Pesa", icon: Zap },
-                  { name: "Telebirr", icon: Zap },
-                  { name: "Visa/Mastercard", icon: CreditCard },
-                  { name: "Telegram", icon: Send },
-                  { name: "WhatsApp", icon: MessageSquare },
-                  { name: "eTIMS", icon: ShieldCheck },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-                    <item.icon className="w-5 h-5 text-accent-blue" />
-                    <span className="font-bold text-sm tracking-wide">{item.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div className="relative flex-shrink-0">
-              <div className="w-80 h-80 bg-accent-blue/10 rounded-full flex items-center justify-center relative">
-                <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-0 border-2 border-dashed border-white/10 rounded-full"
-                />
-                <ShieldCheck className="w-24 h-24 text-accent-blue" />
-                
-                {/* Orbiting Icons */}
-                {[0, 72, 144, 216, 288].map((angle, idx) => (
-                  <motion.div
-                    key={idx}
-                    className="absolute w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-xl"
-                    style={{
-                      transform: `rotate(${angle}deg) translate(140px) rotate(-${angle}deg)`
-                    }}
-                  >
-                    <div className="w-2 h-2 bg-executive-blue rounded-full" />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Calculator Section */}
-      <section className="py-24 bg-executive-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-[2.5rem] p-8 sm:p-16 shadow-2xl border border-executive-blue/5 overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-blue/5 rounded-full blur-3xl -z-10" />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <Calculator className="text-accent-blue w-8 h-8" />
-                  <h2 className="text-3xl font-bold text-executive-blue">{t('calc_title')}</h2>
-                </div>
-                <p className="text-lg text-executive-blue/60 mb-10">{t('calc_sub')}</p>
-                
-                <div className="space-y-8">
-                  <div>
-                    <label className="block text-sm font-bold text-executive-blue/40 uppercase tracking-widest mb-4">
-                      {t('rev_label')}
-                    </label>
-                    <input 
-                      type="range" 
-                      min="10000" 
-                      max="1000000" 
-                      step="10000"
-                      value={revenue}
-                      onChange={(e) => setRevenue(Number(e.target.value))}
-                      className="w-full h-2 bg-executive-light rounded-lg appearance-none cursor-pointer accent-executive-blue"
-                    />
-                    <div className="flex justify-between mt-4">
-                      <span className="text-2xl font-bold text-executive-blue">${revenue.toLocaleString()}</span>
-                      <span className="text-executive-blue/40 font-medium">$1M+</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-executive-blue/40 uppercase tracking-widest mb-4">
-                      {t('days_label')}
-                    </label>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max="30" 
-                      value={days}
-                      onChange={(e) => setDays(Number(e.target.value))}
-                      className="w-full h-2 bg-executive-light rounded-lg appearance-none cursor-pointer accent-executive-blue"
-                    />
-                    <div className="flex justify-between mt-4">
-                      <span className="text-2xl font-bold text-executive-blue">{days} Days</span>
-                      <span className="text-executive-blue/40 font-medium">30 Days</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-executive-blue rounded-3xl p-10 text-white text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 to-transparent opacity-50" />
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/40 mb-4">{t('result_label')}</p>
-                <motion.p 
-                  key={profitDrain}
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="text-5xl sm:text-7xl font-bold mb-8 text-accent-blue"
-                >
-                  ${profitDrain.toLocaleString()}
-                </motion.p>
-                <p className="text-white/60 mb-8 leading-relaxed">
-                  {t('calc_drain_desc')}
-                </p>
-                <button 
-                  onClick={scrollToContact}
-                  className="w-full bg-white text-executive-blue py-4 rounded-xl font-bold hover:bg-accent-blue hover:text-white transition-all"
-                >
-                  {t('calc_cta')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ChaosClarity />
 
       {/* Compliance Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-            <div className="max-w-2xl">
-              <h2 className="text-4xl font-bold text-executive-blue mb-4">{t('compliance_title')}</h2>
-              <p className="text-lg text-executive-blue/60">{t('compliance_sub')}</p>
-            </div>
-            <div className="flex gap-4">
-              <div className="px-6 py-3 bg-executive-light rounded-full border border-executive-blue/5 font-bold text-sm">KRA Certified</div>
-              <div className="px-6 py-3 bg-executive-light rounded-full border border-executive-blue/5 font-bold text-sm">eTIMS Ready</div>
-            </div>
-          </div>
+      <section id="compliance" className="py-24 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider">
+                <ShieldCheck className="w-3 h-3" />
+                KRA eTIMS Compliant
+              </div>
+              <h2 className="text-4xl font-bold leading-tight">{t('etims.title')}</h2>
+              <p className="text-slate-600 text-lg leading-relaxed">
+                {t('etims.desc')}
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  { icon: <WifiOff className="w-5 h-5" />, text: t('etims.feature2') },
+                  { icon: <Zap className="w-5 h-5" />, text: t('etims.feature1') },
+                  { icon: <Users className="w-5 h-5" />, text: t('etims.feature3') },
+                  { icon: <CheckCircle2 className="w-5 h-5" />, text: "Buyer-Initiated Invoicing" }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                    <div className="text-veritas-emerald">{item.icon}</div>
+                    <span className="text-sm font-semibold text-slate-700">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { title: "Kenya (KRA)", desc: "Full eTIMS integration and automated VAT filing for large enterprises." },
-              { title: t('missing_payments_title'), desc: t('missing_payments_sub') },
-              { title: "Regional Hubs", desc: "Supporting operations in Uganda, Tanzania, and Rwanda." },
-            ].map((item, idx) => (
-              <div key={idx} className="p-8 rounded-2xl bg-executive-light border border-executive-blue/5">
-                <div className="w-10 h-10 bg-executive-blue rounded-lg flex items-center justify-center mb-6">
-                  <Globe className="text-white w-5 h-5" />
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="absolute -inset-4 veritas-gradient opacity-5 blur-3xl rounded-[3rem]"></div>
+              <div className="relative glass-panel p-10 rounded-[3rem] border-veritas-emerald/20">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center">
+                    <TrendingUp className="text-veritas-emerald w-6 h-6" />
+                  </div>
+                  <h3 className="text-2xl font-bold">{t('tax.title')}</h3>
                 </div>
-                <h3 className="font-bold text-xl text-executive-blue mb-3">{item.title}</h3>
-                <p className="text-executive-blue/60 leading-relaxed">{item.desc}</p>
+                <p className="text-slate-600 mb-8">
+                  {t('tax.desc')}
+                </p>
+                <ul className="space-y-4">
+                  {[t('tax.benefit1'), t('tax.benefit2'), t('tax.benefit3')].map((benefit, i) => (
+                    <li key={i} className="flex items-center gap-3 text-slate-700 font-medium">
+                      <div className="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="text-veritas-emerald w-4 h-4" />
+                      </div>
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-10 p-6 rounded-2xl bg-slate-50 border border-slate-100 text-sm text-slate-500 italic">
+                  "ERP software is classified under 'Computer Software' for tax purposes. Claim a 20% annual wear and tear allowance over five years."
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* High-ROI Features */}
+      <section className="py-24 bg-veritas-surface">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: <Zap />, title: 'eTIMS Integration', desc: 'Issue KRA-compliant invoices directly from ERPNext. Real-time transmission even during internet downtime.' },
+              { icon: <Smartphone />, title: 'M-Pesa & Bank Sync', desc: 'Automated reconciliation for Kenyan payment methods. No more manual matching of transaction codes.' },
+              { icon: <ShieldCheck />, title: 'Tax-Optimized Workflows', desc: 'Proper expense capturing to maximize your 20% annual wear and tear allowance and VAT claims.' }
+            ].map((f, i) => (
+              <div key={i} className="glass-panel p-8 rounded-[2rem] hover:border-veritas-emerald transition-all group">
+                <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-veritas-emerald group-hover:text-white transition-all">
+                  {f.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-4">{f.title}</h3>
+                <p className="text-slate-500 leading-relaxed text-sm">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      <ROICalculator onRescue={scrollToContact} />
+
+      <ContactForm />
+
       {/* Footer */}
-      <footer ref={contactRef} className="bg-executive-blue text-white py-20 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-1 md:col-span-2">
+      <footer className="bg-veritas-navy text-white py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-12 mb-16">
+            <div className="col-span-2">
               <div className="flex items-center gap-2 mb-6">
-                <ShieldCheck className="text-accent-blue w-8 h-8" />
-                <span className="font-bold text-2xl tracking-tight">LULTECH</span>
+                <Zap className="text-veritas-emerald w-6 h-6" />
+                <span className="text-2xl font-bold text-white">KUL<span className="text-veritas-emerald">TECH</span></span>
               </div>
-              <p className="text-white/40 max-w-sm leading-relaxed mb-8">
-                Building the Single Source of Truth for East African enterprises. We are experts in ERPNext Implementation, rescuing businesses from operational chaos.
+              <p className="text-slate-400 max-w-sm leading-relaxed">
+                Bespoke ERPNext implementations for Kenyan distributors and manufacturers. We eliminate revenue leakage and operational chaos.
               </p>
-              <div className="flex gap-4">
-                <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10" title="M-Pesa">
-                  <Zap className="text-accent-blue w-5 h-5" />
-                </div>
-                <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10" title="Visa/Mastercard">
-                  <CreditCard className="text-accent-blue w-5 h-5" />
-                </div>
-                <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10" title="Telegram">
-                  <Send className="text-accent-blue w-5 h-5" />
-                </div>
-              </div>
             </div>
             <div>
-              <h4 className="font-bold mb-6 uppercase tracking-widest text-xs text-white/40">Solutions</h4>
-              <ul className="space-y-4 text-sm font-medium">
-                <li><a href="#" className="hover:text-accent-blue transition-colors">ERPNext Implementation</a></li>
-                <li><a href="#" className="hover:text-accent-blue transition-colors">WhatsApp Integration</a></li>
-                <li><a href="#" className="hover:text-accent-blue transition-colors">KRA/eTIMS Compliance</a></li>
-                <li><a href="#" className="hover:text-accent-blue transition-colors">Tax Planning & Advisory</a></li>
+              <h4 className="font-bold mb-6">Solutions</h4>
+              <ul className="space-y-4 text-slate-400 text-sm">
+                <li><a href="#chaos" className="hover:text-veritas-emerald transition-colors">Workflow Rescue</a></li>
+                <li><a href="#compliance" className="hover:text-veritas-emerald transition-colors">eTIMS Integration</a></li>
+                <li><a href="#compliance" className="hover:text-veritas-emerald transition-colors">Tax Planning</a></li>
+                <li><a href="#calculator" className="hover:text-veritas-emerald transition-colors">ROI Calculator</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-6 uppercase tracking-widest text-xs text-white/40">Contact</h4>
-              <ul className="space-y-4 text-sm font-medium">
-                <li className="flex items-center gap-2"><Globe className="w-4 h-4 text-accent-blue" /> Nairobi, Kenya</li>
-                <li className="flex items-center gap-2"><MessageSquare className="w-4 h-4 text-accent-blue" /> +254 700 000 000</li>
-                <li className="flex items-center gap-2"><FileText className="w-4 h-4 text-accent-blue" /> info@lultech.com</li>
+              <h4 className="font-bold mb-6">Company</h4>
+              <ul className="space-y-4 text-slate-400 text-sm">
+                <li><a href="#" className="hover:text-veritas-emerald transition-colors">About Kultech</a></li>
+                <li><a href="#contact" className="hover:text-veritas-emerald transition-colors">Contact Us</a></li>
+                <li><a href="https://kultech.com" className="hover:text-veritas-emerald transition-colors">kultech.com</a></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/20 font-bold uppercase tracking-widest">
-            <p>© 2026 Lultech Africa. All Rights Reserved.</p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-white/10 text-slate-500 text-sm">
+            <p>© 2026 Kultech. Nairobi, Kenya. All rights reserved.</p>
             <div className="flex gap-8">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

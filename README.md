@@ -6,7 +6,7 @@
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/827985d3-cd70-46db-9f67-4bce7b36b86a
+View your app in AI Studio: https://ai.studio/apps/cda29346-8a78-4509-bac5-e309574ca757
 
 ## Run Locally
 
@@ -18,4 +18,3 @@ View your app in AI Studio: https://ai.studio/apps/827985d3-cd70-46db-9f67-4bce7
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
-# lt-erp
