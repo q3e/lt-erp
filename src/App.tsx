@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AuditTool } from './components/AuditTool';
 import { 
   ShieldCheck, 
   TrendingUp, 
@@ -78,7 +79,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8">
           <a href="#chaos" className="text-sm font-medium text-slate-600 hover:text-veritas-emerald transition-colors">{t('solutions')}</a>
           <a href="#compliance" className="text-sm font-medium text-slate-600 hover:text-veritas-emerald transition-colors">{t('tax_benefits')}</a>
-          <a href="#calculator" className="text-sm font-medium text-slate-600 hover:text-veritas-emerald transition-colors">{t('calculator')}</a>
+          <a href="#audit" className="text-sm font-medium text-slate-600 hover:text-veritas-emerald transition-colors">{t('calculator')}</a>
           
           <div className="relative">
             <button 
@@ -142,7 +143,7 @@ const Navbar = () => {
             </div>
             <a href="#chaos" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('solutions')}</a>
             <a href="#compliance" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('tax_benefits')}</a>
-            <a href="#calculator" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('calculator')}</a>
+            <a href="#audit" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">{t('calculator')}</a>
             <a href="#contact" className="block text-center bg-veritas-emerald text-white w-full py-4 rounded-xl font-bold">{t('demo')}</a>
           </motion.div>
         )}
@@ -159,6 +160,7 @@ const ChaosClarity = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('chaos_title')}</h2>
+          <p className="text-lg text-veritas-emerald font-semibold mt-4">{t('human_bridge')}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -327,6 +329,10 @@ export default function App() {
     document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToAudit = () => {
+    document.getElementById('audit')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -352,7 +358,7 @@ export default function App() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <button 
-                onClick={scrollToContact}
+                onClick={scrollToAudit}
                 className="bg-veritas-navy text-white px-12 py-6 rounded-2xl font-bold text-xl hover:bg-slate-800 transition-all shadow-2xl shadow-slate-300 flex items-center gap-3 group"
               >
                 {t('audit')} <ArrowRight className={`w-6 h-6 group-hover:translate-x-2 transition-transform ${isRtl ? 'rotate-180' : ''}`} />
@@ -364,6 +370,11 @@ export default function App() {
                 <Calculator className="w-6 h-6" />
                 {t('calc_roi')}
               </button>
+            </div>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-semibold text-slate-500">
+              <span>{t('meeting_hook')}</span>
+              <span className="text-slate-300">•</span>
+              <span>{t('bank_hook')}</span>
             </div>
           </motion.div>
         </div>
@@ -393,6 +404,8 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      <AuditTool onRescue={scrollToContact} />
 
       <ChaosClarity />
 
@@ -506,7 +519,7 @@ export default function App() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { icon: <Zap />, title: 'eTIMS Integration', desc: 'Issue KRA-compliant invoices directly from ERPNext. Real-time transmission even during internet downtime.' },
-              { icon: <Smartphone />, title: 'M-Pesa & Bank Sync', desc: 'Automated reconciliation for Kenyan payment methods. No more manual matching of transaction codes.' },
+              { icon: <Smartphone />, title: 'M-Pesa & Bank Sync', desc: t('feature_bank_desc') },
               { icon: <ShieldCheck />, title: 'Tax-Optimized Workflows', desc: 'Proper expense capturing to maximize your 20% annual wear and tear allowance and VAT claims.' }
             ].map((f, i) => (
               <div key={i} className="glass-panel p-8 rounded-[2rem] hover:border-veritas-emerald transition-all group">
