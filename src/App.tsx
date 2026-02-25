@@ -24,7 +24,14 @@ import {
   GraduationCap,
   RefreshCw,
   Building2,
-  Package
+  Package,
+  Banknote,
+  ShoppingCart,
+  Cog,
+  Target,
+  FolderKanban,
+  MessageCircle,
+  Layout
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -65,7 +72,7 @@ const Navbar = () => {
           <div className="w-10 h-10 veritas-gradient rounded-lg flex items-center justify-center">
             <Zap className="text-white w-6 h-6" />
           </div>
-          <span className="text-2xl font-bold tracking-tight text-veritas-navy">KUL<span className="text-veritas-emerald">TECH</span></span>
+          <span className="text-2xl font-bold tracking-tight text-veritas-navy">LUL<span className="text-veritas-emerald">TECH</span></span>
         </div>
         
         <div className="hidden md:flex items-center gap-8">
@@ -514,6 +521,48 @@ export default function App() {
         </div>
       </section>
 
+      <section id="erp-modules" className="py-24 bg-veritas-surface">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-veritas-navy mb-4">
+              Save time and money through automation
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              One ERP. Every module your growing business needs.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: Banknote, title: 'Financial Accounting', desc: 'Get a real-time view of your cash flow. Full-fledged accounting module covering every aspect of bookkeeping.' },
+              { icon: ShoppingCart, title: 'Order Management', desc: 'Increase productivity and lower costs by managing your sales and purchase cycles, from purchase to sales orders.' },
+              { icon: Users, title: 'HR and Payroll', desc: 'Manage full employee life cycle right from onboarding, payroll, attendance, expense claims, assets to separation.' },
+              { icon: Cog, title: 'Manufacturing', desc: 'Effectively maintain and manage multilevel bill of materials, production planning, job cards & inventory.' },
+              { icon: Target, title: 'CRM', desc: 'Win and retain more customers by optimizing the sales process. Track leads, opportunities, and send quotes on the go.' },
+              { icon: FolderKanban, title: 'Projects', desc: 'Deliver both internal and external projects on time, budget, and profitability. Track tasks, timesheets, and issues by project.' },
+              { icon: MessageCircle, title: 'Helpdesk', desc: 'Deliver a better service experience with an intuitive issue tracker and an integrated knowledge base.' },
+              { icon: Package, title: 'Asset Management', desc: 'Maintain and manage details of assets, their movement, value adjustment, and depreciation.' },
+              { icon: Layout, title: 'Website', desc: 'ERPNext comes with fully-featured content management with blogs, web pages, and forms.' },
+            ].map((mod) => (
+              <div key={mod.title} className="glass-panel p-6 rounded-2xl hover:border-veritas-emerald transition-all group">
+                <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center mb-4 group-hover:bg-veritas-emerald group-hover:text-white transition-all">
+                  <mod.icon className="text-veritas-emerald w-6 h-6 group-hover:text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-veritas-navy mb-2">{mod.title}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-4">{mod.desc}</p>
+                <button
+                  type="button"
+                  onClick={scrollToContact}
+                  className="text-veritas-emerald font-semibold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all"
+                >
+                  Learn more
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="comparison" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
@@ -659,7 +708,7 @@ export default function App() {
             <div className="col-span-2">
               <div className="flex items-center gap-2 mb-6">
                 <Zap className="text-veritas-emerald w-6 h-6" />
-                <span className="text-2xl font-bold text-white">KUL<span className="text-veritas-emerald">TECH</span></span>
+                <span className="text-2xl font-bold text-white">LUL<span className="text-veritas-emerald">TECH</span></span>
               </div>
               <p className="text-slate-400 max-w-sm leading-relaxed">
                 Bespoke ERPNext implementations for Kenyan distributors and manufacturers. We eliminate revenue leakage and operational chaos.

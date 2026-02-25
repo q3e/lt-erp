@@ -5,7 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   en: {
     translation: {
-      "hero": "Unlock Your Payments. Stop the KRA Fear.",
+      "hero": "Full ERP Power. KRA eTIMS-Ready Before the Deadline.",
       "hero_erp": "One Full ERP: Compliance + Total Visibility.",
       "sub": "Custom ERPNext with full eTIMS integration and end-to-end business control. Get real insight into sales, commissions, and inventory—not just tax receipts. Built for contractors and SMBs who have outgrown the basic app.",
       "hero_dual_1": "KRA eTIMS compliant",
@@ -134,7 +134,8 @@ const resources = {
         "company": "Jina la Kampuni",
         "message": "Ujumbe",
         "send": "Tuma Ujumbe"
-      }
+      },
+      "footer_dual_label": "Uzingatiaji wa KRA + uangalizi kamili wa mauzo, kamisheni na hesabu ya bidhaa"
     }
   },
   am: {
@@ -179,7 +180,8 @@ const resources = {
         "company": "የኩባንያ ስም",
         "message": "መልዕክት",
         "send": "መልዕክት ላክ"
-      }
+      },
+      "footer_dual_label": "የKRA ተገዢነት + ወደ ሽያጭ፣ ኮሚሽኖች እና እቃ ሒሳብ ሙሉ ታይነት"
     }
   },
   fr: {
@@ -224,7 +226,8 @@ const resources = {
         "company": "Nom de l'Entreprise",
         "message": "Message",
         "send": "Envoyer le Message"
-      }
+      },
+      "footer_dual_label": "Conformité KRA + visibilité complète sur les ventes, commissions et stocks"
     }
   },
   ar: {
@@ -269,7 +272,8 @@ const resources = {
         "company": "اسم الشركة",
         "message": "الرسالة",
         "send": "إرسال الرسالة"
-      }
+      },
+      "footer_dual_label": "الامتثال لـ KRA + رؤية كاملة للمبيعات والعمولات والمخزون"
     }
   }
 };
