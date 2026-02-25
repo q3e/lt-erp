@@ -71,7 +71,7 @@ export default function App() {
               <div className="w-8 h-8 bg-executive-blue rounded-lg flex items-center justify-center">
                 <ShieldCheck className="text-white w-5 h-5" />
               </div>
-              <span className="font-bold text-xl tracking-tight text-executive-blue">KULTECH</span>
+              <span className="font-bold text-xl tracking-tight text-executive-blue">LULTECH</span>
             </div>
             
             <div className="flex items-center gap-4">
@@ -491,7 +491,7 @@ export default function App() {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-2 mb-6">
                 <ShieldCheck className="text-accent-blue w-8 h-8" />
-                <span className="font-bold text-2xl tracking-tight">KULTECH</span>
+                <span className="font-bold text-2xl tracking-tight">LULTECH</span>
               </div>
               <p className="text-white/40 max-w-sm leading-relaxed mb-8">
                 Building the Single Source of Truth for East African enterprises. We are experts in ERPNext Implementation, rescuing businesses from operational chaos.
