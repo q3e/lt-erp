@@ -126,7 +126,14 @@ const resources = {
         "company": "Company Name",
         "message": "Message",
         "send": "Send Message"
-      }
+      },
+      "lultech_diff_title": "The Lultech Difference",
+      "lultech_diff_subtitle": "Board-ready, KRA-safe ERPNext implementations for Kenyan SMBs.",
+      "lultech_diff_items": [
+        "One-button eTIMS sync: issue KRA-verified tax invoices directly from ERPNext—no manual portal work.",
+        "Reverse invoicing for casuals: automate buyer-initiated invoicing so labour costs remain tax-deductible.",
+        "Project-based costing for \"mjengo\": track materials, labour, and margins per site before leakage destroys profit."
+      ]
     }
   },
   sw: {
@@ -178,7 +185,7 @@ const resources = {
   am: {
     translation: {
       "hero": "ንግድዎን በዋትስአፕ (WhatsApp) መምራት ያቁሙ። በግልፅነት ማደግ ይጀምሩ።",
-      "sub": "ለኬንያ አከፋፋዮች እና አምራቾች የ ERPNext ትግበራ። የሽያጭ፣ የመጋዘን እና የሂሳብ አያያዝዎን ወደ አንድ ስርዓት ያማክሩ።",
+      "sub": "ለየተለያዩ ንግዶች የ ERPNext ትግበራ። የሽያጭ፣ የመጋዘን እና የሂሳብ አያያዝዎን ወደ አንድ ስርዓት ያማክሩ።",
       "leakage": "የገቢ መፍሰስ (ኪሳራ)",
       "ssot": "አንድ የሁኔታዎች ምንጭ",
       "audit": "ነፃ ኦዲት ያስይዙ",
@@ -190,41 +197,41 @@ const resources = {
       "mess_title": "ውጥንቅጥ (የአሁኑ ሁኔታ)",
       "veritas_title": "የኩልቴክ መንገድ",
       "mess_items": ["በዋትስአፕ የተቀበሩ ትዕዛዞች", "የቴሌግራም ውዥንብር", "የኤክሴል ስህተቶች", "በወረቀት ላይ የተመሰረቱ ደረሰኞች"],
-      "veritas_items": ["የእውነተኛ ጊዜ ዳሽቦርዶች", "አውቶማቲክ የሽያጭ ኮሚሽኖች", "የአንድ ጠቅታ ዲጂታል ደረሰኝ", "የ eTIMS እና KRA ተገዢነት"],
+      "veritas_items": ["የእውነተኛ ጊዜ ዳሽቦርዶች", "አውቶማቲክ የሽያጭ ኮሚሽኖች", "የአንድ ጠቅታ ዲጂታል ደረሰኝ", "ተገቢ የግብር መመሪያዎች መከተል"],
       "calc_title": "ምን ያህል እያጡ ነው?",
       "calc_label": "ወርሃዊ ገቢ (USD)",
       "calc_result": "ዓመታዊ ሊመለስ የሚችል ትርፍ",
       "calc_cta": "ስራዬን ይታደጉ",
       "etims": {
-        "title": "eTIMS ን በቀጥታ ከሶፍትዌርዎ ያውጡ",
-        "desc": "የእኛ የ ERPNext ትግበራዎች ሙሉ በሙሉ eTIMS ተገዢ ናቸው። ለ VSCU መፍትሄዎች ኢንተርኔት ባይኖርም ደረሰኝ ማውጣት መቀጠል ይቻላል።",
-        "feature1": "የእውነተኛ ጊዜ የ KRA ስርጭት",
-        "feature2": "ያለ ኢንተርኔት ደረሰኝ የማውጣት ድጋፍ",
-        "feature3": "በገዢ የሚጀመር ደረሰኝ"
+        "title": "ደረሰኞችን በቀጥታ ከስርዓትዎ ያውጡ",
+        "desc": "የ ERPNext ትግበራዎቻችን የግብር መመሪያዎችን በመከተል የንግድዎን ውሂብ በውስጣዊ ሂደት ላይ ማስተናገድ ይረዳሉ።",
+        "feature1": "የዕቃ እና የሽያጭ መረጃን በአንድ ስፍራ ማስቀመጥ",
+        "feature2": "ያለ ተለመዱ እጅግ ብዙ እርምጃዎች መቀነስ",
+        "feature3": "ከስርዓቱ ውስጥ የሚጀምሩ ደረሰኞች"
       },
       "tax": {
-        "title": "20% ዓመታዊ የግብር ቅነሳ",
-        "desc": "በኬንያ የ ERP ሶፍትዌር ለ 20% ዓመታዊ የርጅና አበል ብቁ ነው። ቅልጥፍናን በሚያሻሽሉበት ጊዜ የድርጅትዎን የግብር ሸክም ይቀንሱ።",
-        "benefit1": "20% የርጅና አበል",
-        "benefit2": "30% የሃርድዌር አበል",
-        "benefit3": "የተጨማሪ እሴት ታክስ (VAT) ድጋፍ"
+        "title": "የግብር እና ፋይናንስ ግልጽነት",
+        "desc": "ትክክለኛ የፋይናንስ ሬኮርዶች ለንግድዎ ግብር መቀነስና ዕቅድ ለመውሰድ ይረዳሉ።",
+        "benefit1": "የወጪ እና ገቢ ግልጽ ቅኝት",
+        "benefit2": "ቀላል የፋይናንስ መመዝገብ",
+        "benefit3": "ከግብር ባለሥልጣን ጋር ቀላል መግባባት"
       },
       "contact": {
         "title": "ለማደግ ዝግጁ ነዎት?",
-        "subtitle": "በናይሮቢ የሚገኘው የእኛ የ ERPNext አርክቴክቶች ቡድን ውዥንብርን ለማስወገድ ሊረዳዎት ዝግጁ ነው።",
+        "subtitle": "የ ERPNext ባለሙያዎቻችን የንግድዎን ውዥንብር ለማስወገድ ሊረዱዎት ዝግጁ ናቸው።",
         "name": "ሙሉ ስም",
         "email": "የስራ ኢሜል",
         "company": "የኩባንያ ስም",
         "message": "መልዕክት",
         "send": "መልዕክት ላክ"
       },
-      "footer_dual_label": "የKRA ተገዢነት + ወደ ሽያጭ፣ ኮሚሽኖች እና እቃ ሒሳብ ሙሉ ታይነት"
+      "footer_dual_label": "ወደ ሽያጭ፣ ኮሚሽኖች እና እቃ ሒሳብ ሙሉ ታይነት"
     }
   },
   fr: {
     translation: {
       "hero": "Arrêtez de gérer votre entreprise sur WhatsApp. Centralisez vos opérations.",
-      "sub": "Implémentations ERPNext sur mesure pour les distributeurs et fabricants kenyans. Unifiez vos ventes, votre entrepôt et votre comptabilité.",
+      "sub": "Implémentations ERPNext sur mesure pour les entreprises en croissance. Unifiez vos ventes, votre entrepôt et votre comptabilité.",
       "leakage": "Fuite de Revenus",
       "ssot": "Source Unique de Vérité",
       "audit": "Réserver un Audit Gratuit",
@@ -236,41 +243,41 @@ const resources = {
       "mess_title": "Le Désordre (État Actuel)",
       "veritas_title": "La Méthode Lultech",
       "mess_items": ["Commandes WhatsApp perdues", "Confusion sur Telegram", "Erreurs Excel", "Factures papier manuelles"],
-      "veritas_items": ["Tableaux de Bord en Temps Réel", "Commissions Automatisées", "Facturation en 1 Clic", "Conformité eTIMS & KRA"],
+      "veritas_items": ["Tableaux de Bord en Temps Réel", "Commissions Automatisées", "Facturation en 1 Clic", "Suivi conforme aux règles fiscales"],
       "calc_title": "Combien perdez-vous ?",
       "calc_label": "Chiffre d'Affaires Mensuel (USD)",
       "calc_result": "Profit Annuel Récupérable",
       "calc_cta": "Sauver mes Opérations",
       "etims": {
-        "title": "Émettez eTIMS directement depuis votre logiciel",
-        "desc": "Nos implémentations ERPNext sont entièrement conformes à eTIMS. Pour les solutions VSCU, la facturation peut continuer pendant les pannes internet.",
-        "feature1": "Transmission KRA en temps réel",
-        "feature2": "Support de facturation hors ligne",
-        "feature3": "Facturation initiée par l'acheteur"
+        "title": "Émettez vos factures directement depuis votre logiciel",
+        "desc": "Nos implémentations ERPNext aident à structurer vos flux de facturation et de reporting pour respecter les exigences de votre administration fiscale.",
+        "feature1": "Transmission centralisée des données",
+        "feature2": "Support de facturation même avec une connexion instable",
+        "feature3": "Facturation déclenchée depuis le flux de vente"
       },
       "tax": {
-        "title": "Déduction fiscale annuelle de 20%",
-        "desc": "Les logiciels ERP au Kenya bénéficient d'une allocation d'usure annuelle de 20%. Réduisez votre charge fiscale tout en améliorant l'efficacité.",
-        "benefit1": "20% d'allocation d'usure",
-        "benefit2": "30% d'allocation matériel",
-        "benefit3": "Support crédit de TVA"
+        "title": "Visibilité fiscale améliorée",
+        "desc": "Un ERP bien configuré réduit les erreurs manuelles et facilite la préparation de vos déclarations fiscales.",
+        "benefit1": "Suivi précis des charges",
+        "benefit2": "Rapports financiers clairs",
+        "benefit3": "Aide à la préparation des déclarations"
       },
       "contact": {
         "title": "Prêt à Scaler ?",
-        "subtitle": "Notre équipe d'architectes ERPNext à Nairobi est prête à vous aider à éliminer le désordre.",
+        "subtitle": "Notre équipe d'architectes ERPNext est prête à vous aider à éliminer le désordre dans vos opérations.",
         "name": "Nom Complet",
         "email": "Email Professionnel",
         "company": "Nom de l'Entreprise",
         "message": "Message",
         "send": "Envoyer le Message"
       },
-      "footer_dual_label": "Conformité KRA + visibilité complète sur les ventes, commissions et stocks"
+      "footer_dual_label": "Visibilité complète sur les ventes, commissions et stocks"
     }
   },
   ar: {
     translation: {
       "hero": "توقف عن إدارة عملك عبر واتساب. ابدأ التوسع بوضوح.",
-      "sub": "تطبيقات ERPNext مخصصة للموزعين والمصنعين الكينيين. قم بمركزية مبيعاتك ومستودعاتك ومحاسبتك.",
+      "sub": "تطبيقات ERPNext مخصصة للشركات النامية. قم بمركزية مبيعاتك ومستودعاتك ومحاسبتك.",
       "leakage": "تسرب الإيرادات",
       "ssot": "مصدر واحد للحقيقة",
       "audit": "احجز تدقيقاً مجانياً",
@@ -282,35 +289,35 @@ const resources = {
       "mess_title": "الفوضى (الوضع الحالي)",
       "veritas_title": "طريقة كولتيك",
       "mess_items": ["طلبات واتساب مدفونة", "ارتباك تيليجرام", "أخطاء إكسل", "فواتير ورقية يدوية"],
-      "veritas_items": ["لوحات معلومات فورية", "عمولات مبيعات مؤتمتة", "فواتير رقمية بضغطة واحدة", "الامتثال لـ eTIMS و KRA"],
+      "veritas_items": ["لوحات معلومات فورية", "عمولات مبيعات مؤتمتة", "فواتير رقمية بضغطة واحدة", "الالتزام بإرشادات الجهة الضريبية"],
       "calc_title": "كم تخسر؟",
       "calc_label": "الإيرادات الشهرية (دولار)",
       "calc_result": "الربح السنوي القابل للاسترداد",
       "calc_cta": "إنقاذ عملياتي",
       "etims": {
-        "title": "إصدار eTIMS مباشرة من برنامجك",
-        "desc": "تطبيقات ERPNext لدينا متوافقة تماماً مع eTIMS. بالنسبة لحلول VSCU، يمكن أن تستمر الفوترة أثناء انقطاع الإنترنت.",
-        "feature1": "نقل KRA في الوقت الفعلي",
-        "feature2": "دعم الفواتير بدون إنترنت",
-        "feature3": "الفواتير التي يبدأها المشتري"
+        "title": "إصدار فواتيرك مباشرة من نظامك",
+        "desc": "تطبيقات ERPNext لدينا تساعدك على تنظيم الفوترة والتقارير لتتلاءم مع متطلبات هيئة الضرائب في بلدك.",
+        "feature1": "تجميع البيانات في نقطة مركزية",
+        "feature2": "دعم الفوترة حتى مع اتصال غير مستقر",
+        "feature3": "فواتير يتم إنشاؤها من داخل مسار المبيعات"
       },
       "tax": {
-        "title": "خصم ضريبي سنوي بنسبة 20%",
-        "desc": "برامج ERP في كينيا مؤهلة للحصول على بدل استهلاك سنوي بنسبة 20%. قلل العبء الضريبي على شركتك.",
-        "benefit1": "20% بدل استهلاك",
-        "benefit2": "30% بدل أجهزة",
-        "benefit3": "دعم ائتمان ضريبة القيمة المضافة"
+        "title": "رؤية أوضح للضرائب",
+        "desc": "سجلات مالية دقيقة تقلل الأخطاء وتُسهّل إعداد الإقرارات الضريبية.",
+        "benefit1": "متابعة دقيقة للمصروفات",
+        "benefit2": "تقارير مالية واضحة",
+        "benefit3": "مساعدة في التعامل مع هيئة الضرائب"
       },
       "contact": {
         "title": "هل أنت مستعد للتوسع؟",
-        "subtitle": "فريقنا من مهندسي ERPNext في نيروبي مستعد لمساعدتك في القضاء على الفوضى.",
+        "subtitle": "فريقنا من مهندسي ERPNext مستعد لمساعدتك في القضاء على الفوضى في عملياتك.",
         "name": "الاسم الكامل",
         "email": "البريد الإلكتروني للعمل",
         "company": "اسم الشركة",
         "message": "الرسالة",
         "send": "إرسال الرسالة"
       },
-      "footer_dual_label": "الامتثال لـ KRA + رؤية كاملة للمبيعات والعمولات والمخزون"
+      "footer_dual_label": "رؤية كاملة للمبيعات والعمولات والمخزون"
     }
   }
 };

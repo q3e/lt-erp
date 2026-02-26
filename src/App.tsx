@@ -44,10 +44,7 @@ const Navbar = () => {
 
   const languages = [
     { code: 'en', name: 'English' },
-    { code: 'sw', name: 'Swahili' },
-    { code: 'am', name: 'Amharic' },
-    { code: 'fr', name: 'Français' },
-    { code: 'ar', name: 'العربية', dir: 'rtl' }
+    { code: 'sw', name: 'Swahili' }
   ];
 
   const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
@@ -444,6 +441,36 @@ export default function App() {
         </div>
       </section>
 
+      <section id="difference" className="py-24 bg-veritas-surface">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-veritas-navy mb-4">
+                {t('lultech_diff_title')}
+              </h2>
+              <p className="text-lg text-slate-600 max-w-xl">
+                {t('lultech_diff_subtitle')}
+              </p>
+            </div>
+            <div className="space-y-4">
+              {Array.isArray(t('lultech_diff_items', { returnObjects: true }))
+                ? (t('lultech_diff_items', { returnObjects: true }) as string[]).map((item, index) => (
+                    <div
+                      key={index}
+                      className="glass-panel p-5 rounded-2xl flex items-start gap-4 border-slate-200"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-veritas-emerald/10 flex items-center justify-center flex-shrink-0">
+                        <ShieldCheck className="w-5 h-5 text-veritas-emerald" />
+                      </div>
+                      <p className="text-slate-700 text-sm leading-relaxed">{item}</p>
+                    </div>
+                  ))
+                : null}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Compliance Section */}
       <section id="compliance" className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
@@ -683,6 +710,138 @@ export default function App() {
 
       <ContactForm />
 
+      <section id="countries" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-veritas-navy mb-4">
+              ERPNext, Localised for East Africa
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              One implementation playbook, tuned for how tax, distribution, and cash actually move in each market.
+              We work with local accountants and revenue rules so your board sees a single source of truth, not four separate systems.
+            </p>
+          </div>
+
+          <div className="grid gap-10 lg:gap-12 lg:grid-cols-2">
+            <article id="ke" className="glass-panel p-8 rounded-3xl border-slate-200">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <span className="text-xs font-bold tracking-widest uppercase text-slate-500">Kenya (KE)</span>
+                <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+                  KRA • eTIMS • VSCU
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-veritas-navy mb-4">
+                Unlock payments stuck behind KRA and eTIMS.
+              </h3>
+              <p className="text-slate-600 mb-4 leading-relaxed">
+                For Kenyan distributors, contractors, and manufacturers, we design ERPNext around the KRA handshake:
+                one-button eTIMS sync, reverse invoicing for casuals, project-based costing for mjengo, and
+                bank/M-Pesa reconciliation that makes sense to your auditor.
+              </p>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                The result: fewer disallowed expenses, faster release of held payments, and a directors&apos; report
+                that clearly separates compliant revenue from operational leakage.
+              </p>
+              <button
+                type="button"
+                onClick={scrollToContact}
+                className="inline-flex items-center gap-2 text-veritas-emerald font-semibold text-sm hover:gap-3 transition-all"
+              >
+                Talk to a Kenya implementation lead
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </article>
+
+            <article id="ug" className="glass-panel p-8 rounded-3xl border-slate-200">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <span className="text-xs font-bold tracking-widest uppercase text-slate-500">Uganda (UG)</span>
+                <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+                  URA • e-invoicing
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-veritas-navy mb-4">
+                Structure your ERP around URA e-invoicing reality.
+              </h3>
+              <p className="text-slate-600 mb-4 leading-relaxed">
+                In Uganda, the real risk is fragmented sales and purchase data across branches, manual URA uploads,
+                and inventory that never quite matches the tax position. We model ERPNext so that each invoice,
+                goods movement, and credit note is born compliant with URA expectations.
+              </p>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                From FMCG distributors to manufacturers, we help you align warehouse, sales vans, and finance so the URA
+                story and the boardroom story are finally the same.
+              </p>
+              <button
+                type="button"
+                onClick={scrollToContact}
+                className="inline-flex items-center gap-2 text-veritas-emerald font-semibold text-sm hover:gap-3 transition-all"
+              >
+                Design my Uganda ERPNext rollout
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </article>
+
+            <article id="tz" className="glass-panel p-8 rounded-3xl border-slate-200">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <span className="text-xs font-bold tracking-widest uppercase text-slate-500">Tanzania (TZ)</span>
+                <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+                  TRA • e-fiscal
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-veritas-navy mb-4">
+                From EFD chaos to a single ERPNext truth.
+              </h3>
+              <p className="text-slate-600 mb-4 leading-relaxed">
+                Tanzanian businesses juggle TRA e-fiscal devices, POS slips, and spreadsheets that never quite agree.
+                We design ERPNext as the control tower: every sale, return, and stock movement reconciles against your
+                TRA-facing devices and internal GL, not in someone&apos;s head.
+              </p>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                That means cleaner VAT positions, fewer reconciliation wars between branches, and management reporting
+                that you can actually share with investors.
+              </p>
+              <button
+                type="button"
+                onClick={scrollToContact}
+                className="inline-flex items-center gap-2 text-veritas-emerald font-semibold text-sm hover:gap-3 transition-all"
+              >
+                Map my TRA and ERPNext flows
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </article>
+
+            <article id="et" className="glass-panel p-8 rounded-3xl border-slate-200">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <span className="text-xs font-bold tracking-widest uppercase text-slate-500">Ethiopia (ET)</span>
+                <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+                  ERCA • e-reporting
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-veritas-navy mb-4">
+                ERPNext tuned for ERCA and high-growth operations.
+              </h3>
+              <p className="text-slate-600 mb-4 leading-relaxed">
+                Ethiopian manufacturers and distributors need more than generic software; they need inventory, pricing,
+                and tax logic that match ERCA reporting expectations and local banking realities. We customise ERPNext
+                so that operational documents and statutory reports come from the same clean data.
+              </p>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                You get clear landed-cost tracking, margin visibility per customer or route, and properly documented
+                transactions when ERCA comes asking questions.
+              </p>
+              <button
+                type="button"
+                onClick={scrollToContact}
+                className="inline-flex items-center gap-2 text-veritas-emerald font-semibold text-sm hover:gap-3 transition-all"
+              >
+                Explore ERPNext for Ethiopia
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-veritas-navy text-white py-24">
         <div className="max-w-7xl mx-auto px-6">
@@ -742,6 +901,15 @@ export default function App() {
                 <li><a href="#" className="hover:text-veritas-emerald transition-colors">About Lultech</a></li>
                 <li><a href="#contact" className="hover:text-veritas-emerald transition-colors">Contact Us</a></li>
                 <li><a href="https://lultech.com" className="hover:text-veritas-emerald transition-colors">lultech.com</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-6">Countries</h4>
+              <ul className="space-y-4 text-slate-400 text-sm">
+                <li><a href="#ke" className="hover:text-veritas-emerald transition-colors">Kenya (KE)</a></li>
+                <li><a href="#ug" className="hover:text-veritas-emerald transition-colors">Uganda (UG)</a></li>
+                <li><a href="#tz" className="hover:text-veritas-emerald transition-colors">Tanzania (TZ)</a></li>
+                <li><a href="#et" className="hover:text-veritas-emerald transition-colors">Ethiopia (ET)</a></li>
               </ul>
             </div>
           </div>
